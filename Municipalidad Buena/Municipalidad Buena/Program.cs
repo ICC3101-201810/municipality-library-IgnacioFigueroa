@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
+using ClassLibrary1;
 
 namespace Municipalidad_Buena
 {
@@ -11,38 +12,76 @@ namespace Municipalidad_Buena
     {
         static void Main(string[] args)
         {
-            Assembly archivoAssembly = Assembly.LoadFile("C:/Users/infig/source/repos/Reflection/Reflection/ClassLibrary1.dll");
-            foreach (Type type in archivoAssembly.GetTypes())
+            //Como existe problemas de contencion, no se pueden crear obejtos de las clases persona y address por lo que tampoco se pueden crear objetos de la clase car
+            List<Person> personas = new List<Person>();
+            List<Car> Autos = new List<Car>();
+            List<Address> propiedades = new List<Address>();
+
+            /*A continuación hay una serie de métodos que permiten dar funcionalidad
+            a un programa de gestion de la municipalidad, el programa gestor de la 
+            municipalidad solamente se encargaria de los inputs y los outputs del programa*/
+            void InscribirPersona(Person persona)
             {
-                if (type.IsClass) Console.WriteLine("class");
-                else if (type.IsInterface) Console.WriteLine("interface");
-                else Console.WriteLine("otro tipo");
-                Console.WriteLine(type.Name);
-                PropertyInfo[] propertyInfos = type.GetProperties();
-                MethodInfo[] properties = type.GetMethods();
-                Console.WriteLine("Atributos: ");
-                foreach(PropertyInfo atr in propertyInfos)
-                {
-                    Console.WriteLine("\t" + atr.Name + "  " + atr.PropertyType);
-                }
-
-                Console.WriteLine("Metodos: ");
-                foreach (MethodInfo prop in properties)
-                {
-                    ParameterInfo[] parameterInfos = prop.GetParameters();
-                    Console.Write("Parametros: ");
-                    foreach(ParameterInfo par in parameterInfos)
-                    {
-                        Console.Write(par.ParameterType + " " + par.Name);
-                    }
-                    Console.WriteLine("\t Nombre: " + prop.Name + "    Retorno: " + prop.ReturnParameter);
-                }
-
-                Console.WriteLine();
-
+                personas.Add(persona);
 
             }
-            Console.ReadKey();
+
+            void Adoptar(Person adoptado, Person Padre)
+            {
+                adoptado.getAdopted(Padre);
+            }
+
+            void Adoptar2(Person adoptado, Person padre1, Person padre2)
+            {
+                adoptado.getAdopted(padre1, padre2);
+            }
+
+            void CambiarFirstNombre(Person persona, string nuevoNombre)
+            {
+                persona.changeFirstName(nuevoNombre);
+            }
+
+            void CambiarLastNombre(Person persona, string nuevoNombre)
+            {
+                persona.changeLastName(nuevoNombre);
+            }
+
+            void abandonarCauroChico(Person persona)
+            {
+                persona.getAbandoned();
+            }
+
+            void DarEducacion(Person persona, string almaMater, string n)
+            {
+                persona.setEducation(almaMater, n);
+            }
+
+            void CambiarDueñoPersona(Person persona, Person dueño)
+            {
+                persona.giveUpOwnershipToThirdParty(dueño);
+            }
+
+            void añadirDormitorios(Address propiedad, int dormitorios)
+            {
+                propiedad.addBeedrooms(dormitorios);
+            }
+
+            void añadirBaños(Address propiedad, int baños)
+            {
+                propiedad.addBathrooms(baños);
+            }
+
+            void CambiarDueñoPropiedad(Address propiedad, Person persona)
+            {
+                propiedad.changeOwner(persona);
+            }
+
+            void CambiarDueñoAuto(Car auto, Person persona)
+            {
+                auto.giveUpOwnershipToThirdParty(persona);
+            }
+
+
         }
     }
 }
