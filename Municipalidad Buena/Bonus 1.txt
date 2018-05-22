@@ -1,0 +1,3 @@
+El problema es la asociación circular entre Person y Address en los constructores de cada uno(Es decir cada uno pide al otro en el constructor). 
+Esto es un problema ya que no se puede crear un objeto Person si uno Address y viceversa. 
+Entonces nunca se puede crear un objeto de alguna de estas dos clases sin que haya un error en el programa 
